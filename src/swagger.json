@@ -1,0 +1,163 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Quaq Api",
+    "description": "User CRUD",
+    "contact": {
+      "email": "email@com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/user": {
+      "post": {
+        "summary": "Cadastro de usuario",
+        "description": "Essa rota é responsável por criar um usuário no banco caso ele não exista",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "User": {
+                  "value": {
+                    "email": "quaq@gmail.com",
+                    "name": "quaq",
+                    "password": "quaq1234567",
+                    "passwordConfirmation": "quaq1234567"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email or password is required"
+          },
+          "409": {
+            "description": "User alreay exists"
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "get": {
+        "description": "Get a user information when passing id - Use the id that you created with example above",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update User by id. Use user id that you have created at first example",
+        "summary": "Update User by id",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": "true"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "User": {
+                  "value": {
+                    "email": "quaqUpdated@gmail.com",
+                    "name": "quaqUpdated",
+                    "password": "quaq1234567Updated"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a user passing id - Use this id 619ecb9cf9c09bd79765e86b if you have add a user with the example above",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
