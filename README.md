@@ -1,4 +1,4 @@
-# quaq-back-challenge
+# Quaq-back-challenge
 
 Aplicação que realiza o CRUD de um usúario e o autentifica com JWT feita em Node. Foi utilizado o mongodb atlas como banco de dados.
 
